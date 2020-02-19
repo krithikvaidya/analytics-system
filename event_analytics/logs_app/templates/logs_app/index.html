@@ -2,4 +2,33 @@
 
 {% block content %}
   <h1>Spoken Tutorial Event Logs and Analytics System</h1>
+
+  <div id="container"></div>
+
+  <div id="filter">
+
+    
+
+    
+  
+  </div>
+
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Visitors by time'
+        },
+        xAxis: {
+            categories: ['Past Day', 'Past Week', 'Past Year']
+        },
+        series: [{
+            name: 'Vistor Count',
+            data: [10, 31, 635]
+        }]
+    });
+  </script>
 {% endblock %}

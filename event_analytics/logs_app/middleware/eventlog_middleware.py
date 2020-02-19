@@ -1,6 +1,7 @@
 import json  # to convert our dict into the JSON format
 from django.utils import timezone  # to get the date of the request
 from simple_geoip import GeoIP
+from datetime import datetime, timezone
 
 class LogsAppMiddleware(object):
 
@@ -45,7 +46,7 @@ class LogsAppMiddleware(object):
         event_log['location'] = data['location']['city']
 
         # Timestamp of event
-        event_log['timestamp'] = str(timezone.now())
+        event_log['timestamp'] = str(datetime.now(timezone.utc))
 
         # TODO: store insensitive GET/POST request information
         headers = ''
@@ -62,7 +63,8 @@ class LogsAppMiddleware(object):
         # append the above log to the JSON file
         try:
             with open('logs.json', 'a', encoding='utf-8') as f:
-                json.dump(event_log, f, ensure_ascii=False, indent=4)
+                json.dump(event_log, f, ensure_ascii=False)
+                f.write('\n')
 
         except OSError:
             print('Could not open logs JSON file for writing.')
