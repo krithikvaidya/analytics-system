@@ -32,23 +32,27 @@ def index(request):
 
                 if difference.days == 0:
 
+                    print('yes')
                     year_visitors += 1
                     week_visitors += 1
                     day_visitors += 1
 
-                elif difference.days == 6:
+                elif difference.days <= 6:
 
                     week_visitors += 1
-                    day_visitors += 1
+                    year_visitors += 1
 
-                elif difference.days == 0:
+                elif difference.days <= 364:
 
-                    day_visitors += 1
+                    year_visitors += 1
 
 
     except OSError:
         print('Could not open logs JSON file for reading.')
 
+    print(day_visitors)
+    print(year_visitors)
+    
     context = {'day': day_visitors,
                'week': week_visitors,
                'year': year_visitors }
