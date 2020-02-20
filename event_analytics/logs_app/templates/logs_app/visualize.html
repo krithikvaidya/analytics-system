@@ -4,21 +4,29 @@
 
 
   <!-- Chart to visualize day, week, year and total log counts -->
-  <div id="container" style="height: 350px"></div>
-
-
-  <!-- Ask user for location for filtering by location -->
-  <form action="{% url 'visualize' %}" method="post">
-	{% csrf_token %}
-	
-    <input type="text" name="location">Or, enter a location:</input>
-	<input type="submit">Visualize</input>
-	
-  </form>
-
+  <div id="container" style="height: 350px; {{ style1 }}; margin: 0px 0px -50px 0px;"></div>
+  </div>
 
   <!-- Chart to visualize event log by given location -->
-  <div id="location" style="{{ style }}"></div>
+  <div id="location" style="height: 350px; {{ style2 }}; margin: 0px 15px -50px 15px;"></div>
+
+  <br><br>
+  <div style="padding: 0px 15px 0px 15px;">
+  <form class="form-inline justify-content-center" action="{% url 'visualize' %}" method="post" style="padding-top: 10px;background:#FFFFFF;">
+	{% csrf_token %}
+	<div class="form-group mb-2">
+		<input type="text" readonly class="form-control-plaintext" name="location" value="Filter by Location: ">
+	</div>
+	<div class="form-group mx-sm-3 mb-2">
+		<input type="text" class="form-control" name="location" placeholder="Location">
+	</div>
+
+	<input type="submit" class="btn btn-primary mb-2">
+
+  </form>
+</div>
+
+
 
   <!-- Include HighCharts -->
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
@@ -36,6 +44,9 @@
         },
         xAxis: {
             categories: ['Past Day', 'Past Week', 'Past Year', 'All Time']
+		},
+		credits: {
+            enabled: false
         },
         series: [{
             name: 'Visitor Count',
@@ -46,13 +57,13 @@
 	// Draw chart 2, if required
     Highcharts.chart('location', {
         chart: {
-            type: 'bar'
+			type: 'bar',
         },
         title: {
             text: 'Visitors from location {{ location }}'
         },
         xAxis: {
-            categories: [ '{{ location }}' , 'Total'],
+            categories: [ 'Visitors from {{ location }}' , 'Total Visitors'],
         },
         yAxis: {
             min: 0,
@@ -60,9 +71,9 @@
                 text: 'Visit count',
                 align: 'high'
             },
-            labels: {
-                overflow: 'justify'
-            }
+			labels: {
+				overflow: 'justify'
+			}
         },
         legend: {
             layout: 'vertical',

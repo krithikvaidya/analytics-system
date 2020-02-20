@@ -28,12 +28,14 @@ def visualize(request):
 
     location = None  # stores location filter
     loc_visitors = 0  # stores visitor count by location
-    style = "display: none;"  # whether or not to display the location-based chart
-    
+    style1 = "display: block;"  # whether or not to display the time based chart
+    style2 = "display: none;"  # whether or not to display the location filtered chart
+
     # if the request has been created for visualizing data by location,
     if 'location' in request.POST:
         location = request.POST['location']
-        style = "display: block;"
+        style1 = "display: none;"
+        style2 = "display: block;"
 
     try:
         
@@ -91,7 +93,8 @@ def visualize(request):
         'total': total_visitors,
         'loc_visitors': loc_visitors,
         'location': location,
-        'style': style 
+        'style1': style1,
+        'style2': style2
     }
 
     return render(request, 'logs_app/visualize.html', context)

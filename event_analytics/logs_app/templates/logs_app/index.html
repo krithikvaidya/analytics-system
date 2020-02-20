@@ -1,5 +1,18 @@
 {% extends "base_template.html" %}
 
 {% block content %}
-  <h1>Spoken Tutorial Event Logs and Analytics System</h1>
+  <div class="jumbotron" style="text-align: center;">
+    <h1 class="display-4">Spoken Tutorial Event Logs and Analytics</h1>
+    <p class="lead">This page is recording visitor event logs!</p>
+    <hr class="my-4">
+
+    <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+      <div class="card-header">Your Details</div>
+      <div class="card-body">
+        <p class="card-text">Browser - asdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkjaj</p>
+      </div>
+    </div>
+    <p class="lead">Head over to the Visualizations page to view visualizations</p>
+    <a href="{% url 'visualize' %}" class="btn btn-primary">View Log Visualizations</a>
+  </div>
 {% endblock %}

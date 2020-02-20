@@ -7,7 +7,7 @@ Python 3 and Pip 3
 
 ### Clone this repository
 ```
-git clone https://github.com/krithikvaidya/analytics-system.git`
+git clone https://github.com/krithikvaidya/analytics-system.git
 ```
 
 ### Change directory

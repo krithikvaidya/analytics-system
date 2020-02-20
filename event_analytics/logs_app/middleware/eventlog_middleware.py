@@ -58,6 +58,7 @@ class LogsAppMiddleware(object):
         geoip = GeoIP("at_w3VVriiq1AGRdxPb0bYZIhhR8KoxL")
         data = geoip.lookup(ip)
         event_log['location'] = data['location']['city']
+        request.session['location'] = event_log['location']
 
         # Timestamp of event
         event_log['timestamp'] = str(datetime.now(timezone.utc))
