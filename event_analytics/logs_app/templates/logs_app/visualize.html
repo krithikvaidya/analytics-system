@@ -11,21 +11,24 @@
   <div id="location" style="height: 350px; {{ style2 }}; margin: 0px 15px -50px 15px;"></div>
 
   <br><br>
-  <div style="padding: 0px 15px 0px 15px;">
-  <form class="form-inline justify-content-center" action="{% url 'visualize' %}" method="post" style="padding-top: 10px;background:#FFFFFF;">
+<div style="padding: 0px 15px 0px 15px; {{ style1 }};" id="location_form">
+  <form class="form-inline justify-content-center" action="{% url 'visualize' %}" method="post" style="padding-top: 6px; background:#FFFFFF;">
 	{% csrf_token %}
 	<div class="form-group mb-2">
 		<input type="text" readonly class="form-control-plaintext" name="location" value="Filter by Location: ">
 	</div>
 	<div class="form-group mx-sm-3 mb-2">
-		<input type="text" class="form-control" name="location" placeholder="Location">
+		<input type="text" class="form-control" name="location" style="margin-left: -70px;" placeholder="Location">
 	</div>
 
 	<input type="submit" class="btn btn-primary mb-2">
 
   </form>
-</div>
+  </div>
 
+  <div style="padding: 5px 15px 10px 15px; margin: 0px 15px 10px 15px; text-align: center; background-color: white; {{ style2 }};" id="time_form">
+    <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize by Time</a>
+  </div>
 
 
   <!-- Include HighCharts -->
