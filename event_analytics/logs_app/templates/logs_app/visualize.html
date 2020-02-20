@@ -2,46 +2,54 @@
 
 {% block content %}
 
+
+  <!-- Chart to visualize day, week, year and total log counts -->
   <div id="container" style="height: 350px"></div>
 
+
+  <!-- Ask user for location for filtering by location -->
   <form action="{% url 'visualize' %}" method="post">
-    {% csrf_token %}
+	{% csrf_token %}
+	
     <input type="text" name="location">Or, enter a location:</input>
-    
-    <button type="submit">Visualize</button>
+	<input type="submit">Visualize</input>
+	
   </form>
 
+
+  <!-- Chart to visualize event log by given location -->
   <div id="location" style="{{ style }}"></div>
 
-
-
+  <!-- Include HighCharts -->
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+  <!-- Draw charts. Refer to https://www.highcharts.com/docs/index for documentation -->
   <script>
 
-    Highcharts.chart('container', {
+	// Draw chart 1
+	Highcharts.chart('container', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Visitors by time'
+            text: 'Visitor Count by Time'
         },
         xAxis: {
             categories: ['Past Day', 'Past Week', 'Past Year', 'All Time']
         },
         series: [{
-            name: 'Vistor Count',
+            name: 'Visitor Count',
             data: [ {{ day }}, {{ week }}, {{ year }}, {{ total }} ]
         }]
     });
 
-
-
+	// Draw chart 2, if required
     Highcharts.chart('location', {
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Visitors from location '
+            text: 'Visitors from location {{ location }}'
         },
         xAxis: {
             categories: [ '{{ location }}' , 'Total'],
@@ -54,13 +62,6 @@
             },
             labels: {
                 overflow: 'justify'
-            }
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
             }
         },
         legend: {
@@ -82,10 +83,7 @@
             name: 'Visitor Count',
             data: [ {{ loc_visitors }}, {{ total }} ]
         }]
-      });
+    });
 
-    
-
-    
   </script>
 {% endblock %}
