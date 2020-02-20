@@ -6,6 +6,12 @@ import json
 
 def index(request):
 
+    # the logging of event is done in eventlog_middleware.py
+
+    return render(request, 'logs_app/index.html')
+
+def visualize(request):
+
     location = None
     loc_visitors = 0
     style = "display: none;"
@@ -69,9 +75,7 @@ def index(request):
                'location': location,
                'style': style }
 
-    return render(request, 'logs_app/index.html', context)
-
-# def visualize(request):
+    return render(request, 'logs_app/visualize.html', context)
 
     
 
