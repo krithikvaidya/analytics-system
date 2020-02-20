@@ -2,6 +2,7 @@ import json  # to convert our dict into the JSON format
 from django.utils import timezone  # to get the date of the request
 from simple_geoip import GeoIP
 from datetime import datetime, timezone
+from django.urls import resolve  # to resolve current URL
 
 class LogsAppMiddleware(object):
 
@@ -10,8 +11,13 @@ class LogsAppMiddleware(object):
 
     def __call__(self, request):
 
-        # TODO: save logs only for requests to the homepage.
+        current_url = resolve(request.path_info).url_name
 
+        # if the current URL is not the home page, do not record event log
+        if not current_url == 'index':
+            response = self.get_response(request)
+            return response
+        
         # the dictionary that will hold the event log
         event_log = {}
 

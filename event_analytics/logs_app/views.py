@@ -6,6 +6,14 @@ import json
 
 def index(request):
 
+    location = None
+    loc_visitors = 0
+    style = "display: none;"
+    
+    if request.method == "POST":
+        location = request.POST['location']
+        style = "display: block;"
+
     try:
         
         with open('logs.json', 'r', encoding='utf-8') as f:
@@ -27,12 +35,10 @@ def index(request):
                 event_log = json.loads(line)
                 past_date = parse(event_log['timestamp'])
 
-                print(type(past_date))
                 difference = datetime.now(timezone.utc) - past_date
 
                 if difference.days == 0:
 
-                    print('yes')
                     year_visitors += 1
                     week_visitors += 1
                     day_visitors += 1
@@ -46,16 +52,22 @@ def index(request):
 
                     year_visitors += 1
 
+                if location:
+                    if event_log['location'] == location:
+                        loc_visitors += 1
+
 
     except OSError:
         print('Could not open logs JSON file for reading.')
 
-    print(day_visitors)
-    print(year_visitors)
-    
+
     context = {'day': day_visitors,
                'week': week_visitors,
-               'year': year_visitors }
+               'year': year_visitors,
+               'total': total_visitors,
+               'loc_visitors': loc_visitors,
+               'location': location,
+               'style': style }
 
     return render(request, 'logs_app/index.html', context)
 
