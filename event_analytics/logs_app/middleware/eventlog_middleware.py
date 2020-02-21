@@ -3,6 +3,7 @@ from simple_geoip import GeoIP  # for converting IP to location
 from datetime import datetime, timezone
 from django.urls import resolve  # to resolve current URL
 
+
 class LogsAppMiddleware(object):
     """Middleware definition for recording event logs
 
@@ -10,7 +11,6 @@ class LogsAppMiddleware(object):
     request object and stores it in a JSON file.
     Event logs for the homepage ONLY are stored.
     """
-
 
     def __init__(self, get_response=None):
         self.get_response = get_response
@@ -22,7 +22,7 @@ class LogsAppMiddleware(object):
         if not current_url == 'index':
             response = self.get_response(request)
             return response
-        
+
         # the Python dictionary that will hold the event log
         event_log = {}
 
@@ -33,7 +33,6 @@ class LogsAppMiddleware(object):
             username = request.user.username
         event_log['user'] = username
 
-
         # get the client's IP address
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -43,9 +42,8 @@ class LogsAppMiddleware(object):
             ip = request.META.get('HTTP_X_REAL_IP')
         else:
             ip = request.META.get('REMOTE_ADDR')
-        
-        event_log['ip_address'] = ip
 
+        event_log['ip_address'] = ip
 
         # get method of request (GET, POST, etc)
         event_log['method'] = request.method
@@ -65,15 +63,17 @@ class LogsAppMiddleware(object):
 
         # store insensitive GET request information (POST requests are not supported on this webpage)
 
-        other_info = dict(request.headers)  # request.headers supported in Django 2.2+
+        # request.headers supported in Django 2.2+
+        other_info = dict(request.headers)
 
         keys_to_remove = ["Cookie", "csrftoken"]
         for key in keys_to_remove:
-           other_info.pop(key, None)
-            
+            other_info.pop(key, None)
+
         other_info = str(other_info)
-        event_log['other_info'] = other_info  
-       
+
+        event_log['other_info'] = other_info
+
         # append the above log to the JSON file. Report error
         # if the file could not be appended to, and continue
         # loading the page normally.
@@ -84,7 +84,6 @@ class LogsAppMiddleware(object):
 
         except OSError:
             print('Could not open logs JSON file for writing.')
-
 
         # store the event_log in the session, so that it can be accessed by the view
         request.session['event_log'] = event_log

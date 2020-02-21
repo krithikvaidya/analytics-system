@@ -12,7 +12,6 @@ def index(request):
     the index page
     """
 
-
     if 'event_log' in request.session:
         event_log = request.session['event_log']
     
@@ -21,6 +20,7 @@ def index(request):
     }
 
     return render(request, 'logs_app/index.html', context)
+
 
 def visualize(request):
     """Visualize the Event Logs
@@ -31,7 +31,6 @@ def visualize(request):
     3. Page visits in the past week
     4. Page visits in the past year
     5. Page visits filtered by location
-
     """
 
     location = None  # stores location filter
@@ -85,9 +84,8 @@ def visualize(request):
                 # if the location of this log matches the filter, increment number
                 # of visitors from that location
                 if location:
-                    if event_log['location'] == location:
+                    if event_log['location'].lower() == location.lower():
                         loc_visitors += 1
-
 
     except OSError:
         print('Could not open logs JSON file for reading.')
