@@ -133,3 +133,6 @@ STATIC_URL = '/static/'
 # Redirect to home URL after login/logout
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/logged_out'
+
+# To allow accessing website from other devices
+ALLOWED_HOSTS = ['*']

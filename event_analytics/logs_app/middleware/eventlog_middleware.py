@@ -63,17 +63,16 @@ class LogsAppMiddleware(object):
         # Timestamp of event
         event_log['timestamp'] = str(datetime.now(timezone.utc))
 
-        # TODO: store insensitive GET/POST request information
-        headers = ''
-        for header, value in request.META.items():
-            if not header.startswith('HTTP'):
-                continue
-            header = '-'.join([h.capitalize() for h in header[5:].lower().split('_')])
-            headers += '{}: {}\n'.format(header, value)
+        # store insensitive GET request information (POST requests are not supported on this webpage)
 
-        meta = request.META['CONTENT_TYPE']
-        ct = request.META['CONTENT_TYPE']
-        # print(f'{request.method} HTTP/1.1\nContent-Length: {meta}\nContent-Type: {ct}\n{headers}\n\n{request.body}')
+        other_info = dict(request.headers)  # request.headers supported in Django 2.2+
+
+        keys_to_remove = ["Cookie", "csrftoken"]
+        for key in keys_to_remove:
+           other_info.pop(key, None)
+            
+        other_info = str(other_info)
+        event_log['other_info'] = other_info  
        
         # append the above log to the JSON file. Report error
         # if the file could not be appended to, and continue
