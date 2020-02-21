@@ -2,7 +2,10 @@
 
 {% block content %}
 
-  <p>Logged out!</p> 
-  <a href="{% url 'login' %}">Click here to login again.</a>
+  <div class="card mb-3 mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">Logged Out!
+      <a href="{% url 'login' %}">Click here to login again.</a>
+    </div>
+  </div>
 
 {% endblock %}

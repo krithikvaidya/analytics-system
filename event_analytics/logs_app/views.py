@@ -12,7 +12,15 @@ def index(request):
     the index page
     """
 
-    return render(request, 'logs_app/index.html')
+
+    if 'event_log' in request.session:
+        event_log = request.session['event_log']
+    
+    context = {
+        'event_log': event_log
+    }
+
+    return render(request, 'logs_app/index.html', context)
 
 def visualize(request):
     """Visualize the Event Logs
@@ -83,7 +91,6 @@ def visualize(request):
 
     except OSError:
         print('Could not open logs JSON file for reading.')
-
 
     # data to be sent to the template
     context = {

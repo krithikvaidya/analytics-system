@@ -6,12 +6,18 @@
     <p class="lead">This page is recording visitor event logs!</p>
     <hr class="my-4">
 
-    <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
-      <div class="card-header">Your Details</div>
+    <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 36rem;">
+      <div class="card-header">Details of the Current Event</div>
       <div class="card-body">
-        <p class="card-text">Browser - asdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkjaj</p>
+        <p class="card-text"><strong>Username</strong> - '{{ event_log.user }}'</p>
+        <p class="card-text"><strong>IP Address</strong> - '{{ event_log.ip_address }}'</p>
+        <p class="card-text"><strong>Request Method</strong> - '{{ event_log.method }}'</p>
+        <p class="card-text"><strong>Browser Info</strong> - '{{ event_log.browser_info }}'</p>
+        <p class="card-text"><strong>Location of Request</strong> - '{{ event_log.location }}'</p>
+        <p class="card-text"><strong>Timestamp</strong> - '{{ event_log.timestamp }}'</p>
       </div>
     </div>
+
     <p class="lead">Head over to the Visualizations page to view visualizations</p>
     <a href="{% url 'visualize' %}" class="btn btn-primary">View Log Visualizations</a>
   </div>

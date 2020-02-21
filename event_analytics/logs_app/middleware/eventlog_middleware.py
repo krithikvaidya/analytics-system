@@ -86,5 +86,9 @@ class LogsAppMiddleware(object):
         except OSError:
             print('Could not open logs JSON file for writing.')
 
+
+        # store the event_log in the session, so that it can be accessed by the view
+        request.session['event_log'] = event_log
+
         response = self.get_response(request)
         return response
