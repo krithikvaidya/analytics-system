@@ -1,103 +1,96 @@
 {% extends "base_template.html" %}
 
+{% block title %}Visualizations{% endblock %}
+
 {% block content %}
 
 
-  <!-- Chart to visualize day, week, year and total log counts -->
-  <div id="container" style="height: 350px; {{ style1 }}; margin: 0px 0px -50px 0px;"></div>
-  </div>
+<!-- Chart to visualize day, week, year and total log counts -->
+<div id="time_chart" style="height: 350px; {{ style1 }}; margin: 0px 0px -50px 0px;"></div>
+</div>
 
-  <!-- Chart to visualize event log by given location -->
-  <div id="location" style="height: 350px; {{ style2 }}; margin: 0px 15px -50px 15px;"></div>
+<!-- Chart to visualize event log by given location -->
+<div id="location_chart" style="height: 350px; {{ style2 }}; margin: 0px 15px -50px 15px;"></div>
 
-  <br><br>
-<div style="padding: 0px 15px 0px 15px; {{ style1 }};" id="location_form">
-  <form class="form-inline justify-content-center" action="{% url 'visualize' %}" method="post" style="padding-top: 6px; background:#FFFFFF;">
-	{% csrf_token %}
-	<div class="form-group mb-2">
-		<input type="text" readonly class="form-control-plaintext text-center" name="location" value="Filter by Location: ">
-	</div>
-	<div class="form-group mx-sm-3 mb-2">
-		<input type="text" class="form-control" name="location" style="margin-right: 10px;" placeholder="Location">
-	</div>
+<br><br>
 
-	<input type="submit" class="btn btn-primary mb-2">
+<div style="padding: 0px 15px 0px 15px; display: block;" id="location_form">
+  <form class="form-inline justify-content-center" action="{% url 'visualize' %}" method="post"
+    style="padding-top: 6px; background:#FFFFFF;">
+    {% csrf_token %}
+    <div class="form-group mb-2">
+      <input type="text" readonly class="form-control-plaintext text-center" name="location"
+        value="Filter by Location: ">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <input type="text" class="form-control" name="location" style="margin-right: 10px;" placeholder="Location"
+        required>
+    </div>
+
+    <input type="submit" class="btn btn-primary mb-2">
 
   </form>
-  </div>
+</div>
 
-  <div style="padding: 5px 15px 10px 15px; margin: 0px 15px 10px 15px; text-align: center; background-color: white; {{ style2 }};" id="time_form">
-    <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize by Time</a>
-  </div>
+<div style="padding: 5px 15px 10px 15px; margin: 0px 15px 10px 15px; text-align: center; background-color: white; {{ style2 }};"
+  id="time_form">
+  <br>
+  <p>Or, Visualize by Time</p>
+  <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize by Time</a>
+</div>
 
 
-  <!-- Include HighCharts -->
-  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+<!-- Include HighCharts library -->
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
 
-  <!-- Draw charts. Refer to https://www.highcharts.com/docs/index for documentation -->
-  <script>
+<!-- Draw charts. Refer to https://www.highcharts.com/docs/index for documentation -->
+<script>
 
-	// Draw chart 1
-	Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Visitor Count by Time'
-        },
-        xAxis: {
-            categories: ['Past Day', 'Past Week', 'Past Year', 'All Time']
-		},
-		credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Visitor Count',
-            data: [ {{ day }}, {{ week }}, {{ year }}, {{ total }} ]
-        }]
-    });
+  // Draw chart 1
+  Highcharts.chart('time_chart', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Visitor Count by Time'
+    },
+    xAxis: {
+      categories: ['Past Day', 'Past Week', 'Past Year', 'All Time']
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: 'Visitor Count',
+      data: [{{ day }}, {{ week }}, {{ year }}, {{ total }} ]
+  }]
+});
 
-	// Draw chart 2, if required
-    Highcharts.chart('location', {
-        chart: {
-			type: 'bar',
-        },
-        title: {
-            text: 'Visitors from location {{ location }}'
-        },
-        xAxis: {
-            categories: [ 'Visitors from {{ location }}' , 'Total Visitors'],
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Visit count',
-                align: 'high'
-            },
-			labels: {
-				overflow: 'justify'
-			}
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Visitor Count',
-            data: [ {{ loc_visitors }}, {{ total }} ]
-        }]
-    });
+  // Draw chart 2, if required
+  Highcharts.chart('location_chart', {
+    chart: {
+      type: 'bar',
+    },
+    title: {
+      text: 'Visitors from location - \'{{ location }}\''
+    },
+    xAxis: {
+      categories: ['Visitors from {{ location }}', 'Total Visitors'],
+    },
+    yAxis: {
+      title: {
+        text: ''
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      name: 'Visitor Count',
+      data: [{{ loc_visitors }}, {{ total }} ]
+  }]
+});
 
-  </script>
+</script>
+
 {% endblock %}

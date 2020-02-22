@@ -59,7 +59,7 @@ class LogsAppMiddleware(object):
         request.session['location'] = event_log['location']
 
         # Timestamp of event
-        event_log['timestamp'] = str(datetime.now(timezone.utc))
+        event_log['timestamp'] = str(datetime.now())
 
         # store insensitive GET request information (POST requests are not supported on this webpage)
 

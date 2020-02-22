@@ -1,24 +1,26 @@
 {% extends "base_template.html" %}
 
+{% block title %}Spoken Tutorial Event Logs and Analytics System{% endblock %}
+
 {% block content %}
-  <div class="jumbotron" style="text-align: center;">
-    <h1 class="display-4">Spoken Tutorial Event Logs and Analytics</h1>
-    <p class="lead">This page is recording visitor event logs!</p>
-    <hr class="my-4">
+<div class="jumbotron" style="text-align: center;">
+  <h1 class="display-5">Spoken Tutorials Event Logs and Analytics</h1>
+  <p class="lead">This page is recording visitor event logs!</p>
+  <hr class="my-4">
 
-    <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 36rem;">
-      <div class="card-header">Details of the Current Event</div>
-      <div class="card-body">
-        <p class="card-text"><strong>Username</strong> - '{{ event_log.user }}'</p>
-        <p class="card-text"><strong>IP Address</strong> - '{{ event_log.ip_address }}'</p>
-        <p class="card-text"><strong>Request Method</strong> - '{{ event_log.method }}'</p>
-        <p class="card-text"><strong>Browser Info</strong> - '{{ event_log.browser_info }}'</p>
-        <p class="card-text"><strong>Location of Request</strong> - '{{ event_log.location }}'</p>
-        <p class="card-text"><strong>Timestamp</strong> - '{{ event_log.timestamp }}'</p>
-      </div>
+  <div class="card bg-light mb-3 mx-auto border-dark" style="max-width: 30rem;">
+    <div class="card-header">Details of the Current Event</div>
+    <div class="card-body">
+      <p class="card-text"><strong>Username</strong> - '{{ event_log.user }}'</p>
+      <p class="card-text"><strong>IP Address</strong> - '{{ event_log.ip_address }}'</p>
+      <p class="card-text"><strong>Request Method</strong> - '{{ event_log.method }}'</p>
+      <p class="card-text"><strong>Browser Info</strong> - '{{ event_log.browser_info }}'</p>
+      <p class="card-text"><strong>Location of Request</strong> - '{{ event_log.location }}'</p>
+      <p class="card-text"><strong>Timestamp</strong> - '{{ event_log.timestamp }}'</p>
     </div>
-
-    <p class="lead">Head over to the Visualizations page to view visualizations</p>
-    <a href="{% url 'visualize' %}" class="btn btn-primary">View Log Visualizations</a>
   </div>
+
+  <p class="lead">Visit the <em>Visualizations</em> page to view event log visualizations</p>
+  <a href="{% url 'visualize' %}" class="btn btn-primary">View Log Visualizations</a>
+</div>
 {% endblock %}

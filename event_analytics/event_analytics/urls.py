@@ -13,5 +13,6 @@ urlpatterns = [
     # Adds Django site authentication urls (for login, logout, password management)
     path('accounts/', include('django.contrib.auth.urls')),
 
-    path('', include('logs_app.urls')),  # redirect other URLs to logs_app/urls.py
+    # redirect other URLs to logs_app/urls.py for processing
+    path('', include('logs_app.urls')),
 ]

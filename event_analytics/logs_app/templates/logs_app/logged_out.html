@@ -1,11 +1,13 @@
 {% extends "base_template.html" %}
 
+{% block title %}Logged Out{% endblock %}
+
 {% block content %}
 
-  <div class="card mb-3 mx-auto text-center" style="max-width: 22rem;">
-    <div class="card-header">Logged Out!
-      <a href="{% url 'login' %}">Click here to login again.</a>
-    </div>
+<div class="card mb-3 mx-auto text-center" style="max-width: 22rem;">
+  <div class="card-header">Logged Out!
+    <a href="{% url 'login' %}">Click here to login again.</a>
   </div>
+</div>
 
 {% endblock %}

@@ -32,9 +32,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',  # Core authentication framework and its default models.
-    'django.contrib.contenttypes',  # Django content type system (allows permissions
-                                    # to be associated with models).
+    # Core authentication framework and its default models.
+    'django.contrib.auth',
+    # Django content type system (allows permissions
+    'django.contrib.contenttypes',
+    # to be associated with models).
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -45,13 +47,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     # Manages sessions across requests
-    'django.contrib.sessions.middleware.SessionMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
     # Associates users with requests using sessions
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -116,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -131,8 +133,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Redirect to home URL after login/logout
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/logged_out'
 
 # To allow accessing website from other devices
+
 ALLOWED_HOSTS = ['*']
