@@ -1,7 +1,23 @@
 # Spoken Tutorial Event Logs and Analytics System
 
+This project aims to create a simplistic Event Logging system in Django, using custom middleware. This is created as part of a screening task for FOSSEE's [Spoken Tutorial Event Logs and Analytics System Project](https://spoken-tutorial.org/stfellowship2020/analyticssystem/)
+
+## Table of Contents
+
+* [Screenshots](#Screenshots)
+* [Requirements](#Requirements)
+* [Quick Setup](#Quick-Setup)
+* [Overview of the Project](#Overview-of-the-Project)
+* [Notes and Improvements](#Notes-and-Improvements)
+* [Standards](#Standards)
+* [Credits](#Credits)
+
+
+## Screenshots
+Please check [here](https://github.com/krithikvaidya/analytics-system/tree/master/Screenshots/) for screenshots of the web-app.
+
 ## Requirements
-Python3.5+ and Pip (Rest of the dependencies will be installed below)
+Python 3.5+ and Pip (Rest of the dependencies will be installed below)
 
 ## Quick Setup
 
@@ -71,7 +87,7 @@ Then, you can create other user accounts from the Django admin page, if required
 
 The project was created with a view of *keeping things simple, while fulfilling all requirements.*
 
-## High Level Explanation
+### High Level Explanation
 
 The Django project (named *event_analytics*) contains an app called *logs_app* that handles the recording of event logs and rendering their visualizations.
 
@@ -110,12 +126,14 @@ The implementation details of the above features can be understood by reading th
 * Ideally, the generation and saving of event logs with each visit should be done asynchronously, on worker threads separate from the main Django process. This is because we do not want the overhead of storing logs to slow down the website and interfere with the user experience. Hence, there is a slight delay in loading the homepage in the current setup, where the middleware requests the GeoIP API to map the user's IP address to their location, and waits for this response.  
 * The above delay of querying the *GeoIPify* API can be avoided if the website was allowed to support the [HTML5 Geolocation API](https://www.w3schools.com/html/html5_geolocation.asp). The overhead of translating IP address to Location would be avoided. 
 * The login system has been kept fairly minimal. User registration is done indirectly through the Django admin page.
+* The IP Geolocation API works with public IP addresses. If we use the django app on our local network, only the internal IP address will be visible to the django server, and the API will be unable to map these IP addresses to a location. In this case, the location field is simply left blank. 
 
 ## Standards
-* Git commit messages strictly adhere to the style mentioned in [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
+* Git commit messages adhere to the style mentioned in [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 * The .gitignore file for this project is partially taken from [here](https://www.gitignore.io/api/django)
 * Docstrings follow [PEP257](https://www.python.org/dev/peps/pep-0257/) conventions  
 
+## Credits
 Created By:  
 Krithik Vaidya  
 B.Tech, 2nd Year (Information Technology)    
