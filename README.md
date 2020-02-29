@@ -41,7 +41,7 @@ sudo apt install python3-venv virtualenvwrapper
 pip3 install virtualenvwrapper-win
 ```
 
-### Create the virtualenv
+### Create the virtualenv and install requirements
 ##### 1. Ubuntu
 ```
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
